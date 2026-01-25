@@ -22,13 +22,13 @@ function NavBar() {
   ];
 
   return (
-    <div className="h-fit">
+    <div className="min-h-[80px]">
       {/* Navbar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? "bg-white/80 backdrop-blur-lg shadow-lg"
-            : "bg-red-100"
+            : "bg-red-200"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,7 +58,7 @@ function NavBar() {
                   <a
                     key={link.name}
                     href={link.href}
-                    className="group relative px-4 py-2 rounded-lg transition-all hover:bg-red-200"
+                    className="group relative px-4 py-2 rounded-lg transition-all hover:bg-red-100"
                   >
                     <div className="flex items-center space-x-2">
                       <Icon className="w-4 h-4 text-gray-900 group-hover:text-red-600 transition-colors" />
