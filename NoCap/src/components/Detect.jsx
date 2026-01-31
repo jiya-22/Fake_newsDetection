@@ -77,10 +77,16 @@ function Detect() {
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/50"></div>
 
+      
+<div className="h-10">
+          <WalletConnect setAccount={setAccount} />
+        </div>
       {/* CONTENT */}
       <div className="relative z-10 w-full max-w-4xl text-center px-6">
 
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-7 drop-shadow-lg">
+        
+
+        <h1 className="text-4xl md:text-4xl font-bold text-white mb-7 drop-shadow-lg">
           Advanced AI Fact-Checker
         </h1>
 
@@ -111,7 +117,7 @@ function Detect() {
         </div>
 
         {/* INPUT BAR */}
-        <div className="flex flex-col gap-4 max-w-3xl mx-auto backdrop-blur-md bg-white/10 p-6 rounded-2xl border border-white/20 shadow-2xl">
+        <div className="flex flex-col gap-4 max-w-3xl mx-auto backdrop-blur-md bg-white/10 p-4 rounded-2xl border border-white/20 shadow-2xl">
           <div className="flex bg-white/90 rounded-xl overflow-hidden shadow-inner">
             <input
               type="text"
@@ -138,7 +144,7 @@ function Detect() {
 
           <button
             onClick={handlePredict}
-            className="w-full md:w-auto px-12 py-4 bg-red-600 text-white font-bold hover:bg-red-700 rounded-xl shadow-xl transition-all hover:scale-[1.02] active:scale-95 border border-red-500/50"
+            className="w-full md:w-auto px-12 py-3 bg-red-600 text-white font-bold hover:bg-red-700 rounded-xl shadow-xl transition-all hover:scale-[1.02] active:scale-95 border border-red-500/50"
           >
             {result.status === "Loading..."
               ? (mode === "url" ? "Analyzing Web & Data..." : "Running Analysis...")

@@ -11,7 +11,7 @@ const Report = () => {
     console.log("SUBMIT CLICKED");
 
     try {
-      const res = await fetch("http://127.0.0.1:5001/report", {
+      const res = await fetch("http://localhost:5001/report", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

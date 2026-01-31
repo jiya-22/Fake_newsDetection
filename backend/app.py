@@ -8,15 +8,13 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
+app = Flask(__name__)
+CORS(app)
 # ArmorIQ Integration (Track 3)
-try:
-    # Attempt to import armoriq. 
-    # Note: Replace 'YOUR_API_KEY' with actual key in environment variables for production
-    from armoriq import ArmorIQ 
-    ARMORIQ_AVAILABLE = True
-except ImportError:
-    ARMORIQ_AVAILABLE = False
-    print("Warning: ArmorIQ SDK not found. Security features disabled.")
+# ArmorIQ disabled (for stability)
+ARMORIQ_AVAILABLE = False
 
 
 
@@ -209,13 +207,10 @@ def prediction():
     text = data.get("text", "")
     
     # --- ArmorIQ Security Scan ---
-    if ARMORIQ_AVAILABLE:
-        try:
-            # Placeholder for demo
-            print("🛡️ ArmorIQ Security Scan: Analyzing input...")
-            print("🛡️ ArmorIQ Scan: ✅ Clean")
-        except Exception as e:
-            print(f"ArmorIQ Scan Error: {e}")
+# ArmorIQ scan disabled
+# if ARMORIQ_AVAILABLE:
+#     pass
+
     # -----------------------------
     
     # Check if the input is a URL
@@ -348,6 +343,79 @@ def get_history(wallet_address):
     except Exception as e:
         print(f"Error fetching history: {e}")
         return jsonify({"error": "Failed to fetch history"}), 500
+    
+
+from flask import request, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
+
+# ---------------- AUTH ----------------
+
+@app.route("/signup", methods=["POST"])
+def signup_user():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"error": "Email and password required"}), 400
+
+    try:
+        # check if user already exists
+        cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
+        if cursor.fetchone():
+            return jsonify({"error": "User already exists"}), 400
+
+        hashed_password = generate_password_hash(password)
+
+        cursor.execute(
+            "INSERT INTO users (email, password) VALUES (%s, %s)",
+            (email, hashed_password)
+        )
+        conn.commit()
+
+        return jsonify({"message": "Signup successful"}), 200
+
+    except Exception as e:
+        conn.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/signin", methods=["POST"])
+def signin_user():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"error": "Email and password required"}), 400
+
+    try:
+        cursor.execute("SELECT password FROM users WHERE email = %s", (email,))
+        user = cursor.fetchone()
+
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+
+        if not check_password_hash(user[0], password):
+            return jsonify({"error": "Invalid password"}), 401
+
+        return jsonify({"message": "Signin successful"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# -------------------------------------
+
+#     # ---------------- AUTH (DEMO MODE) ----------------
+# @app.route("/signup", methods=["POST"])
+# def signUp():
+#     return jsonify({"message": "Signup successful"}), 200
+
+# @app.route("/signin", methods=["POST"])
+# def signin():
+#     return jsonify({"message": "Signin successful"}), 200
+# # --------------------------------------------------
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
