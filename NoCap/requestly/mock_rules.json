@@ -1,0 +1,38 @@
+{
+    "description": "Requestly Mock Rules for NoCap Fact-Checker",
+    "rules": [
+        {
+            "id": "mock-prediction-fake",
+            "name": "Mock Prediction - Fake News",
+            "url": "http://localhost:5001/prediction",
+            "method": "POST",
+            "response": {
+                "status": 200,
+                "body": {
+                    "prediction": "FAKE",
+                    "claim": "The moon is made of green cheese.",
+                    "status": "False",
+                    "evidence": [
+                        "- NASA Lunar Mission: Studies confirm the moon is composed of rock and metal. (https://nasa.gov)",
+                        "- Scientific Consensus: Chemical analysis of lunar soil lacks dairy components."
+                    ],
+                    "reasoning": "This is a classic myth. Scientific data from multiple lunar missions confirms the moon is a terrestrial body, not a dairy product.",
+                    "confidence": "High"
+                }
+            },
+            "active": false
+        },
+        {
+            "id": "mock-history-empty",
+            "name": "Mock History - Empty State",
+            "url": "http://localhost:5001/get_history/.*",
+            "isRegex": true,
+            "method": "GET",
+            "response": {
+                "status": 200,
+                "body": []
+            },
+            "active": false
+        }
+    ]
+}

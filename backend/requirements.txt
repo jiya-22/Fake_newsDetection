@@ -1,0 +1,8 @@
+flask
+flask-cors
+scikit-learn
+nltk
+psycopg2
+requests
+beautifulsoup4
+armoriq-sdk
