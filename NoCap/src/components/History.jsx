@@ -37,14 +37,14 @@ function History() {
     return (
         <div className="relative min-h-screen pt-24 pb-12 px-6">
             {/* BACKGROUND */}
-            <div className="fixed inset-0 bg-slate-950 -z-10">
+            <div className="fixed inset-0 bg-red-50 -z-10">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(185,28,28,0.1),transparent)]" />
             </div>
 
             <div className="max-w-5xl mx-auto">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
                     <div>
-                        <h1 className="text-4xl font-bold text-white mb-2">Analysis History</h1>
+                        <h1 className="text-4xl font-bold text-black mb-2">Analysis History</h1>
                         <p className="text-gray-400">Your past news verifications and analysis reports.</p>
                     </div>
 

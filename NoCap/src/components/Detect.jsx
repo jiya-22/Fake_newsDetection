@@ -65,7 +65,9 @@ function Detect() {
   };
 
   return (
+    
     <div className="relative min-h-screen flex items-center justify-center py-20">
+
 
       {/* BACKGROUND IMAGE */}
       <img
@@ -138,7 +140,7 @@ function Detect() {
 
           <button
             onClick={handlePredict}
-            className="w-full md:w-auto px-12 py-4 bg-red-600 text-white font-bold hover:bg-red-700 rounded-xl shadow-xl transition-all hover:scale-[1.02] active:scale-95 border border-red-500/50"
+            className="w-full md:w-auto px-12 py-4 bg-red-600 text-white hover:bg-red-700 rounded-xl shadow-xl transition-all hover:scale-[1.02] active:scale-95 border border-red-500/50"
           >
             {result.status === "Loading..."
               ? (mode === "url" ? "Analyzing Web & Data..." : "Running Analysis...")

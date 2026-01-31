@@ -8,15 +8,15 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
-# ArmorIQ Integration (Track 3)
-try:
-    # Attempt to import armoriq. 
-    # Note: Replace 'YOUR_API_KEY' with actual key in environment variables for production
-    from armoriq import ArmorIQ 
-    ARMORIQ_AVAILABLE = True
-except ImportError:
-    ARMORIQ_AVAILABLE = False
-    print("Warning: ArmorIQ SDK not found. Security features disabled.")
+# # ArmorIQ Integration (Track 3)
+# try:
+#     # Attempt to import armoriq. 
+#     # Note: Replace 'YOUR_API_KEY' with actual key in environment variables for production
+#     from armoriq import ArmorIQ 
+#     ARMORIQ_AVAILABLE = True
+# except ImportError:
+#     ARMORIQ_AVAILABLE = False
+#     print("Warning: ArmorIQ SDK not found. Security features disabled.")
 
 
 
@@ -208,15 +208,15 @@ def prediction():
     title = data.get("title", data.get("news", ""))
     text = data.get("text", "")
     
-    # --- ArmorIQ Security Scan ---
-    if ARMORIQ_AVAILABLE:
-        try:
-            # Placeholder for demo
-            print("🛡️ ArmorIQ Security Scan: Analyzing input...")
-            print("🛡️ ArmorIQ Scan: ✅ Clean")
-        except Exception as e:
-            print(f"ArmorIQ Scan Error: {e}")
-    # -----------------------------
+    # # --- ArmorIQ Security Scan ---
+    # if ARMORIQ_AVAILABLE:
+    #     try:
+    #         # Placeholder for demo
+    #         print("🛡️ ArmorIQ Security Scan: Analyzing input...")
+    #         print("🛡️ ArmorIQ Scan: ✅ Clean")
+    #     except Exception as e:
+    #         print(f"ArmorIQ Scan Error: {e}")
+    # # -----------------------------
     
     # Check if the input is a URL
     input_to_check = title if title else text

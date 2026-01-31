@@ -31,12 +31,12 @@ const borderColors = [
 
 const Features = () => {
   return (
-    <section className="px-[10%] py-20 bg-gray-700 text-center min-h-screen mb-16">
+    <section className="px-[10%] py-20 bg-red-50 text-center min-h-screen mb-16">
       <h1 className="text-[38px] font-bold mb-2 mt-6 text-red-500">
         Our Key Features
       </h1>
 
-      <p className="text-gray-300 mb-20 text-base">
+      <p className="text-gray-500 mb-20 text-base">
         An ML-powered system to identify fake news using real datasets.
       </p>
 
