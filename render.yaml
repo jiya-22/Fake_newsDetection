@@ -1,13 +1,12 @@
-services:
+databases:
   # PostgreSQL Database
-  - type: pserv
-    name: fake-news-db
-    env: docker
+  - name: fake-news-db
+    databaseName: fake_news_db
+    user: postgres
     plan: free
     region: singapore
-    databases:
-      - name: fake_news_db
-        user: postgres
+
+services:
 
   # Backend Flask API
   - type: web
