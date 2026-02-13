@@ -142,20 +142,31 @@ try:
 except Exception as e:
     print(f"Error loading model: {e}")
 
-# ---------- PostgreSQL Connection (YAHIN) ----------
+# ---------- PostgreSQL Connection ----------
 import psycopg2
+from urllib.parse import urlparse
 
 conn = None
 cursor = None
 
+# Try to get DATABASE_URL from environment (for production)
+database_url = os.getenv('DATABASE_URL')
+
 try:
-    conn = psycopg2.connect(
-        dbname="fake_news_db",
-        user="postgres",
-        password="jangra.11",   # 🔴 apna password
-        host="localhost",
-        port="5432"
-    )
+    if database_url:
+        # Parse the DATABASE_URL for production (Render, Heroku, etc.)
+        print("Using DATABASE_URL from environment")
+        conn = psycopg2.connect(database_url)
+    else:
+        # Fallback to local development credentials
+        print("Using local database credentials")
+        conn = psycopg2.connect(
+            dbname=os.getenv("DB_NAME", "fake_news_db"),
+            user=os.getenv("DB_USER", "postgres"),
+            password=os.getenv("DB_PASSWORD", "jangra.11"),
+            host=os.getenv("DB_HOST", "localhost"),
+            port=os.getenv("DB_PORT", "5432")
+        )
     cursor = conn.cursor()
     print("Database connection successful.")
 except Exception as e:
@@ -350,7 +361,9 @@ def get_history(wallet_address):
         return jsonify({"error": "Failed to fetch history"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    port = int(os.getenv("PORT", 5001))
+    debug = os.getenv("FLASK_ENV") != "production"
+    app.run(host="0.0.0.0", debug=debug, port=port)
 
 
 
