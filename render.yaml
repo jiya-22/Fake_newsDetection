@@ -1,10 +1,3 @@
-databases:
-  # PostgreSQL Database
-  - name: fake-news-db
-    databaseName: fake_news_db
-    plan: free
-    region: singapore
-
 services:
 
   # Backend Flask API
@@ -17,14 +10,11 @@ services:
     dockerContext: ./backend
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: fake-news-db
-          property: connectionString
+        sync: false
       - key: FLASK_ENV
         value: production
       - key: PORT
         value: 5001
-    healthCheckPath: /
     autoDeploy: true
 
   # Frontend React App
